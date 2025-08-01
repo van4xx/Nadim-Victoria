@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свадебное приглашение</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Блок 1: Заголовок с именами -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="main-title">Мы женимся!</h1>
+                <div class="names">
+                    <span class="bride-name">Виктория</span>
+                    <i class="fas fa-heart heart-icon"></i>
+                    <span class="groom-name">Надим</span>
+                </div>
+                <p class="hero-subtitle">Приглашаем вас разделить с нами этот особенный день</p>
+                
+                <!-- Обратный отсчет -->
+                <div class="countdown-container">
+                    <h3 class="countdown-title">До нашего особенного дня осталось:</h3>
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="days">0</span>
+                            <span class="countdown-label">дней</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="hours">0</span>
+                            <span class="countdown-label">часов</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="minutes">0</span>
+                            <span class="countdown-label">минут</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="seconds">0</span>
+                            <span class="countdown-label">секунд</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок 2: Фотографии жениха и невесты -->
+    <section class="photos-section">
+        <div class="container">
+            <h2 class="section-title">Наша история любви</h2>
+            <div class="photos-grid">
+                <div class="photo-container bride-photo">
+                    <img src="images/bride.jpg" alt="Фото Виктории" class="photo-img">
+                    <div class="photo-overlay">
+                        <h4>Виктория</h4>
+                        <p>Невеста</p>
+                    </div>
+                </div>
+                <div class="photo-container couple-photo">
+                    <img src="images/couple.jpg" alt="Виктория и Надим" class="photo-img large">
+                    <div class="photo-overlay">
+                        <h4>Виктория & Надим</h4>
+                        <p>Наша любовь</p>
+                    </div>
+                </div>
+                <div class="photo-container groom-photo">
+                    <img src="images/groom.jpg" alt="Фото Надима" class="photo-img">
+                    <div class="photo-overlay">
+                        <h4>Надим</h4>
+                        <p>Жених</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок 3: Дата и место -->
+    <section class="details-section">
+        <div class="container">
+            <h2 class="section-title">Детали торжества</h2>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Дата</h3>
+                    <p class="detail-text">24 августа 2025</p>
+                    <p class="detail-subtext">Воскресенье</p>
+                </div>
+                <div class="detail-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Время</h3>
+                    <p class="detail-text">15:00</p>
+                    <p class="detail-subtext">Начало церемонии</p>
+                </div>
+                <div class="detail-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Место</h3>
+                    <p class="detail-text">Кафе "Руслан"</p>
+                    <p class="detail-subtext">г. Каракол</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок 4: Программа дня -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">Программа дня</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">15:00</div>
+                    <div class="timeline-content">
+                        <h4>Церемония</h4>
+                        <p>Торжественная регистрация брака</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">16:30</div>
+                    <div class="timeline-content">
+                        <h4>Фотосессия</h4>
+                        <p>Совместные фотографии с гостями</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">18:00</div>
+                    <div class="timeline-content">
+                        <h4>Банкет</h4>
+                        <p>Праздничный ужин и веселье</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">21:00</div>
+                    <div class="timeline-content">
+                        <h4>Танцы</h4>
+                        <p>Музыка и танцы до утра</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок 5: Подтверждение присутствия -->
+    <section class="rsvp-section">
+        <div class="container">
+            <h2 class="section-title">Подтвердите присутствие</h2>
+            <div class="rsvp-content">
+                <p class="rsvp-text">Пожалуйста, сообщите нам до 1 июля, сможете ли вы присутствовать на нашей свадьбе</p>
+                <form class="rsvp-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Телефон" required>
+                    </div>
+                    <div class="form-group">
+                        <select required>
+                            <option value="">Будете присутствовать?</option>
+                            <option value="yes">Да, обязательно буду!</option>
+                            <option value="no">К сожалению, не смогу</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" placeholder="Количество гостей" min="1" max="4">
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Отправить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок 6: Контакты -->
+    <section class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h4>Виктория</h4>
+                    <p><i class="fas fa-phone"></i> +996 (XXX) XXX-XX-XX</p>
+                    <p><i class="fas fa-envelope"></i> victoria@example.com</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h4>Надим</h4>
+                    <p><i class="fas fa-phone"></i> +996 (XXX) XXX-XX-XX</p>
+                    <p><i class="fas fa-envelope"></i> nadim@example.com</p>
+                </div>
+            </div>
+            <div class="footer-message">
+                <p>С любовью, Виктория и Надим</p>
+                <div class="hearts">
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html> 
