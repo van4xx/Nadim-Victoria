@@ -6,17 +6,19 @@
 }
 
 :root {
-    --primary-pink: #FFB6C1;
-    --secondary-pink: #FFC0CB;
-    --deep-pink: #FF69B4;
-    --soft-pink: #FFE4E1;
-    --rose-gold: #E6B8A2;
+    --primary-gold: #D4AF37;
+    --light-gold: #F4E4BC;
+    --deep-gold: #B8860B;
+    --silver: #C0C0C0;
+    --light-silver: #E5E5E5;
+    --deep-silver: #A8A8A8;
+    --pearl-white: #F8F6F0;
+    --pure-white: #FFFFFF;
+    --champagne: #F7E7CE;
     --text-dark: #2C2C2C;
     --text-light: #666;
-    --white: #FFFFFF;
-    --shadow: 0 4px 20px rgba(255, 105, 180, 0.15);
-    --gold: #D4AF37;
-    --pearl-white: #F8F6F0;
+    --shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+    --silver-shadow: 0 4px 20px rgba(192, 192, 192, 0.15);
 }
 
 body {
@@ -32,14 +34,10 @@ body {
     padding: 0 20px;
 }
 
-/* Блок 1: Заголовочная секция с фоновым изображением */
+/* Блок 1: Заголовочная секция */
 .hero-section {
-    background: 
-        linear-gradient(rgba(255, 182, 193, 0.7), rgba(255, 105, 180, 0.8)),
-        url('images/hero-background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background: url('images/background.jpg') center center/cover no-repeat,
+                linear-gradient(135deg, var(--pearl-white) 0%, var(--champagne) 50%, var(--light-gold) 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -55,31 +53,24 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse"><text x="15" y="20" text-anchor="middle" fill="rgba(255,255,255,0.1)" font-size="16">♥</text></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
-    animation: float 25s infinite linear;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1px);
     pointer-events: none;
-}
-
-@keyframes float {
-    0% { transform: translateX(-30px) translateY(-30px); }
-    100% { transform: translateX(30px) translateY(30px); }
 }
 
 .hero-section::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: sparkle 3s ease-in-out infinite alternate;
-}
-
-@keyframes sparkle {
-    0% { opacity: 0.3; }
-    100% { opacity: 0.7; }
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 150px;
+    background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    border: 3px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    z-index: 1;
 }
 
 .hero-content {
@@ -87,26 +78,53 @@ body {
     z-index: 2;
     position: relative;
     max-width: 800px;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 30px;
+    border: 2px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 .main-title {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Playfair Display', serif;
     font-size: 5rem;
-    font-weight: 700;
-    color: var(--white);
-    text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    font-weight: 800;
+    color: var(--deep-gold);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.2), 0 0 15px rgba(212, 175, 55, 0.5);
     margin-bottom: 2rem;
-    animation: fadeInUp 1.5s ease-out, shimmer 3s ease-in-out infinite;
-    background: linear-gradient(45deg, #fff, #FFE4E1, #fff);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    animation: fadeInUp 1s ease-out;
+    position: relative;
+    letter-spacing: 0.05em;
+}
+
+.main-title::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -30px;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+    border-radius: 2px;
+    animation: shimmer 3s infinite;
+}
+
+.main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    right: -30px;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--silver), transparent);
+    border-radius: 2px;
+    animation: shimmer 3s infinite 1.5s;
 }
 
 @keyframes shimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%, 100% { opacity: 0.5; transform: scaleX(0.5); }
+    50% { opacity: 1; transform: scaleX(1); }
 }
 
 .names {
@@ -115,109 +133,160 @@ body {
     justify-content: center;
     gap: 2rem;
     margin-bottom: 2rem;
-    animation: fadeInUp 1.5s ease-out 0.5s both;
+    animation: fadeInUp 1s ease-out 0.5s both;
 }
 
 .bride-name, .groom-name {
-    font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
-    font-weight: 600;
-    color: var(--white);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.2rem;
+    font-weight: 400;
+    color: var(--text-dark);
+    text-shadow: 2px 2px 6px rgba(212, 175, 55, 0.4);
     position: relative;
 }
 
-.bride-name::before,
-.groom-name::before {
+.bride-name::after,
+.groom-name::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold), var(--pearl-white), var(--gold));
+    bottom: -8px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), var(--silver), var(--primary-gold), transparent);
     border-radius: 2px;
-    animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-    0% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
-    100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
+    opacity: 0.8;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
 }
 
 .heart-icon {
     font-size: 2.5rem;
-    color: var(--white);
+    color: var(--primary-gold);
     animation: heartbeat 2s infinite;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+    position: relative;
 }
 
 @keyframes heartbeat {
     0%, 50%, 100% { transform: scale(1); }
-    25%, 75% { transform: scale(1.2); }
+    25%, 75% { transform: scale(1.1); }
 }
 
 .hero-subtitle {
-    font-size: 1.4rem;
-    color: var(--white);
+    font-size: 1.3rem;
+    color: var(--text-dark);
     margin-bottom: 3rem;
-    animation: fadeInUp 1.5s ease-out 1s both;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    animation: fadeInUp 1s ease-out 1s both;
+    text-shadow: 1px 1px 2px rgba(212, 175, 55, 0.2);
+    opacity: 0.85;
 }
 
 /* Стили для обратного отсчета */
 .countdown-container {
     margin: 3rem 0;
-    animation: fadeInUp 1.5s ease-out 1.5s both;
+    animation: fadeInUp 1s ease-out 1.5s both;
+    position: relative;
+}
+
+.countdown-container::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 15%;
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+    border-radius: 2px;
+    animation: decorative-float 6s infinite;
+}
+
+.countdown-container::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 15%;
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--silver), transparent);
+    border-radius: 2px;
+    animation: decorative-float 6s infinite 3s;
+}
+
+@keyframes decorative-float {
+    0%, 100% { opacity: 0.5; transform: scaleX(0.8); }
+    50% { opacity: 1; transform: scaleX(1.2); }
 }
 
 .countdown-title {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
-    color: var(--white);
+    font-weight: 500;
+    color: var(--deep-gold);
     margin-bottom: 2rem;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    letter-spacing: 0.02em;
 }
 
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
 }
 
 .countdown-item {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, var(--pure-white) 0%, var(--pearl-white) 100%);
+    border: 2px solid var(--primary-gold);
     border-radius: 20px;
-    padding: 1.5rem 1rem;
-    min-width: 120px;
+    padding: 1.2rem 0.8rem;
+    min-width: 100px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(192, 192, 192, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: transform 0.6s ease;
+}
+
+.countdown-item:hover::before {
+    transform: rotate(45deg) translate(50%, 50%);
 }
 
 .countdown-item:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.25);
+    box-shadow: var(--shadow), 0 8px 25px rgba(212, 175, 55, 0.3);
+    border-color: var(--deep-gold);
 }
 
 .countdown-number {
     display: block;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    color: var(--white);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    margin-bottom: 0.5rem;
+    color: var(--deep-gold);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 0.3rem;
+    position: relative;
+    z-index: 2;
 }
 
 .countdown-label {
-    font-size: 1rem;
-    color: var(--white);
+    font-size: 0.9rem;
+    color: var(--text-light);
     text-transform: uppercase;
     letter-spacing: 1px;
-    opacity: 0.9;
+    position: relative;
+    z-index: 2;
 }
 
 .scroll-indicator {
@@ -225,27 +294,29 @@ body {
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
-    color: var(--white);
-    font-size: 2rem;
+    color: var(--primary-gold);
+    font-size: 1.8rem;
     animation: bounce 2s infinite;
     cursor: pointer;
     transition: transform 0.3s ease;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
 .scroll-indicator:hover {
-    transform: translateX(-50%) scale(1.2);
+    transform: translateX(-50%) scale(1.1);
+    color: var(--deep-gold);
 }
 
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-15px); }
-    60% { transform: translateX(-50%) translateY(-8px); }
+    40% { transform: translateX(-50%) translateY(-10px); }
+    60% { transform: translateX(-50%) translateY(-5px); }
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(50px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -253,25 +324,48 @@ body {
     }
 }
 
-/* Блок 2: Фотографии с красивыми эффектами */
+/* Блок 2: Фотографии */
 .photos-section {
-    padding: 6rem 0;
-    background: 
-        linear-gradient(rgba(255, 228, 225, 0.9), rgba(255, 255, 255, 0.9)),
-        url('images/photos-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    padding: 5rem 0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(3px);
+    position: relative;
+}
+
+.photos-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(184, 134, 11, 0.06) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .section-title {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Playfair Display', serif;
     font-size: 3.5rem;
+    font-weight: 700;
     text-align: center;
-    color: var(--deep-pink);
-    margin-bottom: 4rem;
+    color: var(--deep-gold);
+    margin-bottom: 3rem;
     position: relative;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    z-index: 2;
+    letter-spacing: 0.03em;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 30%;
+    width: 40%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+    border-radius: 2px;
+    animation: title-glow 4s infinite;
 }
 
 .section-title::after {
@@ -280,39 +374,183 @@ body {
     bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 150px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary-pink), var(--deep-pink), var(--gold));
+    width: 140px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), var(--silver), var(--primary-gold), transparent);
     border-radius: 2px;
-    box-shadow: 0 2px 10px rgba(255, 105, 180, 0.3);
+    box-shadow: 0 2px 12px rgba(212, 175, 55, 0.4);
 }
 
-.photos-grid {
+@keyframes title-glow {
+    0%, 100% { opacity: 0.6; transform: scaleX(0.8); }
+    50% { opacity: 1; transform: scaleX(1); }
+}
+
+.photos-invitation-grid {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     gap: 3rem;
     align-items: center;
 }
 
+.invitation-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.invitation-card {
+    background: linear-gradient(135deg, var(--pure-white), var(--pearl-white));
+    border: 3px solid var(--primary-gold);
+    border-radius: 25px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    box-shadow: var(--shadow), var(--silver-shadow), 0 0 30px rgba(212, 175, 55, 0.2);
+    position: relative;
+    max-width: 500px;
+    transition: all 0.3s ease;
+}
+
+.invitation-card::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--primary-gold);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: subtle-pulse 4s infinite;
+}
+
+.invitation-card::after {
+    content: '';
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--silver);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: subtle-pulse 4s infinite 2s;
+}
+
+@keyframes subtle-pulse {
+    0%, 100% { opacity: 0.2; transform: scale(0.9); }
+    50% { opacity: 0.4; transform: scale(1.1); }
+}
+
+.invitation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow), var(--silver-shadow), 0 0 40px rgba(212, 175, 55, 0.3);
+}
+
+.invitation-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--deep-gold);
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 6px rgba(212, 175, 55, 0.3);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+}
+
+.invitation-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-gold), var(--silver), var(--primary-gold));
+    margin: 0 auto 2rem;
+    border-radius: 2px;
+}
+
+.invitation-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--text-dark);
+    margin-bottom: 2.5rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.invitation-couple {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--light-gold), var(--champagne));
+    border-radius: 15px;
+    border: 2px solid var(--silver);
+}
+
+.bride-signature, .groom-signature {
+    font-family: 'Alex Brush', cursive;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--deep-gold);
+    text-shadow: 2px 2px 4px rgba(212, 175, 55, 0.3);
+    position: relative;
+}
+
+.bride-signature::after, .groom-signature::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+    opacity: 0.6;
+}
+
+.heart-divider {
+    font-size: 1.8rem;
+    color: var(--primary-gold);
+    animation: heartbeat 2s infinite;
+    filter: drop-shadow(1px 1px 2px rgba(212, 175, 55, 0.3));
+}
+
+.invitation-footer {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 2rem;
+    letter-spacing: 0.01em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
 .photo-container {
     position: relative;
-    border-radius: 25px;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(255, 105, 180, 0.2);
-    transition: all 0.5s ease;
+    box-shadow: var(--shadow), var(--silver-shadow);
+    transition: all 0.3s ease;
     cursor: pointer;
+    border: 3px solid var(--light-gold);
 }
 
 .photo-container:hover {
-    transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3), 0 8px 25px rgba(192, 192, 192, 0.2);
+    border-color: var(--primary-gold);
 }
 
 .photo-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.3s ease;
 }
 
 .photo-img:not(.large) {
@@ -324,7 +562,7 @@ body {
 }
 
 .photo-container:hover .photo-img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .photo-overlay {
@@ -332,11 +570,11 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
     color: white;
-    padding: 2rem;
+    padding: 1.5rem;
     transform: translateY(100%);
-    transition: transform 0.5s ease;
+    transition: transform 0.3s ease;
 }
 
 .photo-container:hover .photo-overlay {
@@ -345,54 +583,68 @@ body {
 
 .photo-overlay h4 {
     font-family: 'Dancing Script', cursive;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
 }
 
 .photo-overlay p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     opacity: 0.9;
 }
 
-/* Блок 3: Детали с анимированными карточками */
+/* Блок 3: Детали */
 .details-section {
-    padding: 6rem 0;
-    background: 
-        linear-gradient(135deg, rgba(255, 228, 225, 0.8), rgba(255, 255, 255, 0.9)),
-        url('images/details-bg.jpg');
-    background-size: cover;
-    background-position: center;
+    padding: 5rem 0;
+    background: rgba(248, 246, 240, 0.9);
+    backdrop-filter: blur(2px);
     position: relative;
 }
 
 .details-section::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 105, 180, 0.2) 0%, transparent 50%);
+    top: 20%;
+    left: 10%;
+    width: 100px;
+    height: 50px;
+    background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    border: 2px solid rgba(212, 175, 55, 0.3);
+    animation: arch-glow 8s infinite;
+}
+
+.details-section::after {
+    content: '';
+    position: absolute;
+    top: 60%;
+    right: 10%;
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(135deg, transparent, rgba(184, 134, 11, 0.12), transparent);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    border: 2px solid rgba(184, 134, 11, 0.25);
+    animation: arch-glow 8s infinite 4s;
+}
+
+@keyframes arch-glow {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
 }
 
 .details-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 3rem;
-    position: relative;
-    z-index: 2;
+    gap: 2rem;
 }
 
 .detail-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 3rem 2rem;
-    border-radius: 25px;
+    background: linear-gradient(135deg, var(--pure-white), var(--pearl-white));
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(255, 105, 180, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    transition: all 0.5s ease;
+    box-shadow: var(--shadow), var(--silver-shadow);
+    border: 2px solid var(--light-gold);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
@@ -400,408 +652,77 @@ body {
 .detail-card::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 182, 193, 0.1), transparent);
+    top: 15px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--primary-gold);
+    border-radius: 3px;
+    opacity: 0.4;
+    animation: subtle-glow 3s infinite;
     transform: rotate(45deg);
-    transition: transform 0.6s ease;
 }
 
-.detail-card:hover::before {
-    transform: rotate(45deg) translate(50%, 50%);
+@keyframes subtle-glow {
+    0%, 100% { opacity: 0.3; transform: rotate(45deg) scale(0.9); }
+    50% { opacity: 0.6; transform: rotate(45deg) scale(1.1); }
 }
 
 .detail-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 25px 50px rgba(255, 105, 180, 0.2);
-    border-color: var(--primary-pink);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3), 0 8px 25px rgba(192, 192, 192, 0.2);
+    border-color: var(--primary-gold);
 }
 
 .detail-card i {
-    font-size: 4rem;
-    color: var(--deep-pink);
-    margin-bottom: 1.5rem;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+    font-size: 3.5rem;
+    color: var(--deep-gold);
+    margin-bottom: 1rem;
     transition: transform 0.3s ease;
+    filter: drop-shadow(2px 2px 4px rgba(212, 175, 55, 0.2));
 }
 
 .detail-card:hover i {
-    transform: scale(1.2) rotate(10deg);
+    transform: scale(1.1);
+    color: var(--primary-gold);
 }
 
 .detail-card h3 {
-    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
     color: var(--text-dark);
     margin-bottom: 1rem;
-    font-weight: 600;
+    letter-spacing: 0.02em;
 }
 
 .detail-text {
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--deep-pink);
+    font-weight: 600;
+    color: var(--deep-gold);
     margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(212, 175, 55, 0.3);
+    letter-spacing: 0.01em;
 }
 
 .detail-subtext {
+    font-family: 'Cormorant Garamond', serif;
     color: var(--text-light);
     font-size: 1.1rem;
-    opacity: 0.8;
+    font-weight: 300;
+    letter-spacing: 0.01em;
 }
 
-/* Блок 4: Программа дня с улучшенным timeline */
-.timeline-section {
-    padding: 6rem 0;
-    background: 
-        linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 228, 225, 0.9)),
-        url('images/timeline-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
 
-.timeline {
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-}
 
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(to bottom, var(--primary-pink), var(--deep-pink), var(--gold));
-    transform: translateX(-50%);
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
-}
 
-.timeline-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 4rem;
-    position: relative;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: slideInTimeline 0.8s ease forwards;
-}
 
-.timeline-item:nth-child(1) { animation-delay: 0.2s; }
-.timeline-item:nth-child(2) { animation-delay: 0.4s; }
-.timeline-item:nth-child(3) { animation-delay: 0.6s; }
-.timeline-item:nth-child(4) { animation-delay: 0.8s; }
 
-@keyframes slideInTimeline {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-.timeline-item:nth-child(odd) {
-    flex-direction: row;
-}
 
-.timeline-item:nth-child(even) {
-    flex-direction: row-reverse;
-}
 
-.timeline-time {
-    background: linear-gradient(135deg, var(--deep-pink), var(--primary-pink));
-    color: var(--white);
-    padding: 1.2rem 2rem;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 1.2rem;
-    min-width: 120px;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.3);
-    border: 3px solid white;
-}
 
-.timeline-time::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 20px;
-    height: 20px;
-    background: var(--gold);
-    border-radius: 50%;
-    border: 4px solid white;
-    box-shadow: 0 0 0 4px var(--deep-pink);
-}
-
-.timeline-item:nth-child(odd) .timeline-time::before {
-    right: -40px;
-    transform: translateY(-50%);
-}
-
-.timeline-item:nth-child(even) .timeline-time::before {
-    left: -40px;
-    transform: translateY(-50%);
-}
-
-.timeline-content {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(255, 105, 180, 0.15);
-    margin: 0 3rem;
-    flex: 1;
-    max-width: 350px;
-    border: 2px solid rgba(255, 182, 193, 0.3);
-    transition: all 0.3s ease;
-}
-
-.timeline-content:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 40px rgba(255, 105, 180, 0.25);
-}
-
-.timeline-content h4 {
-    color: var(--deep-pink);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
-
-.timeline-content p {
-    color: var(--text-light);
-    font-size: 1.1rem;
-    line-height: 1.5;
-}
-
-/* Блок 5: RSVP с градиентным фоном */
-.rsvp-section {
-    padding: 6rem 0;
-    background: 
-        linear-gradient(135deg, rgba(255, 105, 180, 0.9), rgba(255, 182, 193, 0.9)),
-        url('images/rsvp-bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    position: relative;
-}
-
-.rsvp-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
-}
-
-.rsvp-section .section-title {
-    color: var(--white);
-    position: relative;
-    z-index: 2;
-}
-
-.rsvp-content {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-
-.rsvp-text {
-    color: var(--white);
-    font-size: 1.3rem;
-    margin-bottom: 3rem;
-    opacity: 0.95;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-}
-
-.rsvp-form {
-    display: grid;
-    gap: 2rem;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 1.2rem 2rem;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    color: var(--text-dark);
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    background: var(--white);
-    border-color: var(--gold);
-    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
-    transform: translateY(-2px);
-}
-
-.submit-btn {
-    background: linear-gradient(135deg, var(--gold), #B8860B);
-    color: var(--white);
-    padding: 1.2rem 3rem;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    margin-top: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-}
-
-.submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
-    background: linear-gradient(135deg, #B8860B, var(--gold));
-}
-
-/* Блок 6: Контакты */
-.contact-section {
-    padding: 6rem 0;
-    background: 
-        linear-gradient(rgba(248, 246, 240, 0.95), rgba(255, 255, 255, 0.9)),
-        url('images/contact-bg.jpg');
-    background-size: cover;
-    background-position: center;
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 4rem;
-    margin-bottom: 4rem;
-}
-
-.contact-card {
-    background: linear-gradient(135deg, rgba(255, 228, 225, 0.9), rgba(255, 182, 193, 0.9));
-    backdrop-filter: blur(10px);
-    padding: 4rem 3rem;
-    border-radius: 25px;
-    text-align: center;
-    color: var(--white);
-    box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.5s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.contact-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transform: rotate(45deg);
-    transition: transform 0.6s ease;
-}
-
-.contact-card:hover::before {
-    transform: rotate(45deg) translate(50%, 50%);
-}
-
-.contact-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 25px 60px rgba(255, 105, 180, 0.3);
-}
-
-.contact-avatar {
-    width: 100px;
-    height: 100px;
-    background: var(--white);
-    color: var(--deep-pink);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    margin: 0 auto 2rem;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border: 4px solid rgba(255, 255, 255, 0.8);
-    transition: transform 0.3s ease;
-}
-
-.contact-card:hover .contact-avatar {
-    transform: scale(1.1) rotate(10deg);
-}
-
-.contact-card h4 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    font-family: 'Dancing Script', cursive;
-}
-
-.contact-card p {
-    margin-bottom: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    font-size: 1.1rem;
-}
-
-.footer-message {
-    text-align: center;
-    padding-top: 4rem;
-    border-top: 3px solid var(--soft-pink);
-    background: linear-gradient(135deg, rgba(255, 228, 225, 0.5), rgba(255, 255, 255, 0.8));
-    border-radius: 25px;
-    padding: 3rem;
-    margin-top: 2rem;
-}
-
-.footer-message p {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.5rem;
-    color: var(--deep-pink);
-    margin-bottom: 1.5rem;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-}
-
-.hearts {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
-
-.hearts i {
-    color: var(--deep-pink);
-    font-size: 2rem;
-    animation: heartbeat 2s infinite;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
-}
-
-.hearts i:nth-child(2) {
-    animation-delay: 0.5s;
-}
-
-.hearts i:nth-child(3) {
-    animation-delay: 1s;
-}
 
 /* Адаптивность */
 @media (max-width: 768px) {
@@ -815,7 +736,7 @@ body {
     }
     
     .bride-name, .groom-name {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
     
     .countdown {
@@ -831,46 +752,31 @@ body {
         font-size: 2rem;
     }
     
-    .photos-grid {
+    .photos-invitation-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
     
-    .timeline::before {
-        left: 30px;
+    .invitation-card {
+        padding: 2rem 1.5rem;
+        max-width: 100%;
     }
     
-    .timeline-item {
-        flex-direction: row !important;
-        padding-left: 80px;
+    .invitation-title {
+        font-size: 1.8rem;
     }
     
-    .timeline-time {
-        position: absolute;
-        left: 0;
-        min-width: 60px;
-        font-size: 0.9rem;
-        padding: 1rem;
+    .invitation-couple {
+        flex-direction: column;
+        gap: 0.5rem;
     }
     
-    .timeline-time::before {
-        right: -30px !important;
-        left: auto !important;
-    }
-    
-    .timeline-content {
-        margin-left: 1rem;
-        margin-right: 0;
-        max-width: none;
+    .bride-signature, .groom-signature {
+        font-size: 1.5rem;
     }
     
     .section-title {
         font-size: 2.5rem;
-    }
-    
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
     }
 }
 
@@ -879,20 +785,8 @@ body {
         padding: 0 15px;
     }
     
-    .hero-section {
-        background-attachment: scroll;
-    }
-    
-    .photos-section,
-    .details-section,
-    .timeline-section,
-    .rsvp-section,
-    .contact-section {
-        background-attachment: scroll;
-    }
-    
     .main-title {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
     
     .section-title {
@@ -903,16 +797,10 @@ body {
         padding: 2rem 1.5rem;
     }
     
-    .timeline-content {
-        padding: 1.5rem;
-    }
-    
-    .contact-card {
-        padding: 2.5rem 2rem;
-    }
+
     
     .countdown-number {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
     
     .countdown-label {

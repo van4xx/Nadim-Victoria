@@ -1,7 +1,38 @@
-// Плавная прокрутка при клике на индикатор скролла
+// Основной код для свадебного сайта
 document.addEventListener('DOMContentLoaded', function() {
-    const scrollIndicator = document.querySelector('.scroll-indicator');
+    // Обратный отсчет до свадьбы
+    const weddingDate = new Date('August 24, 2025 15:00:00').getTime();
     
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+        
+        if (distance < 0) {
+            document.querySelector('.countdown-container').innerHTML = '<h3 class="countdown-title">Мы поженились! 🎉</h3>';
+            return;
+        }
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        
+        if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Плавная прокрутка при клике на индикатор скролла
+    const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
         scrollIndicator.addEventListener('click', function() {
             const photosSection = document.querySelector('.photos-section');
@@ -13,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Анимация появления элементов при прокрутке
+    // Простая анимация появления элементов при прокрутке
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -22,63 +53,45 @@ document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('animate-in');
             }
         });
     }, observerOptions);
 
     // Наблюдаем за элементами для анимации
-    const elementsToAnimate = document.querySelectorAll('.section-title, .detail-card, .timeline-item, .contact-card, .photo-container');
+    const elementsToAnimate = document.querySelectorAll('.section-title, .detail-card, .photo-container, .invitation-card');
     
     elementsToAnimate.forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(30px)';
-        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        element.classList.add('animate-element');
         observer.observe(element);
     });
 
-    // Обработка формы RSVP
-    const rsvpForm = document.querySelector('.rsvp-form');
-    
-    if (rsvpForm) {
-        rsvpForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(rsvpForm);
-            const name = rsvpForm.querySelector('input[type="text"]').value;
-            const phone = rsvpForm.querySelector('input[type="tel"]').value;
-            const attendance = rsvpForm.querySelector('select').value;
-            const guestCount = rsvpForm.querySelector('input[type="number"]').value;
-            
-            // Проверяем заполненность обязательных полей
-            if (!name || !phone || !attendance) {
-                showNotification('Пожалуйста, заполните все обязательные поля', 'error');
-                return;
-            }
-            
-            // Имитация отправки данных
-            const submitBtn = rsvpForm.querySelector('.submit-btn');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправляем...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Отправлено!';
-                showNotification('Спасибо! Ваш ответ получен.', 'success');
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                    rsvpForm.reset();
-                }, 2000);
-            }, 1500);
-        });
-    }
+    // Добавляем CSS стили для анимации
+    const animationStyle = document.createElement('style');
+    animationStyle.textContent = `
+        .animate-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-element.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    `;
+    document.head.appendChild(animationStyle);
+
+
 
     // Функция показа уведомлений
     function showNotification(message, type = 'info') {
+        // Убираем предыдущие уведомления
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+
         // Создаем элемент уведомления
         const notification = document.createElement('div');
         notification.className = `notification notification-${type}`;
@@ -89,60 +102,59 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
         
-        // Добавляем стили для уведомления
-        const style = document.createElement('style');
-        style.textContent = `
-            .notification {
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: white;
-                border-radius: 10px;
-                padding: 1rem 1.5rem;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                max-width: 300px;
-            }
-            
-            .notification.show {
-                transform: translateX(0);
-            }
-            
-            .notification-success {
-                border-left: 4px solid #4CAF50;
-            }
-            
-            .notification-error {
-                border-left: 4px solid #f44336;
-            }
-            
-            .notification-info {
-                border-left: 4px solid #2196F3;
-            }
-            
-            .notification-content {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-            
-            .notification-success i {
-                color: #4CAF50;
-            }
-            
-            .notification-error i {
-                color: #f44336;
-            }
-            
-            .notification-info i {
-                color: #2196F3;
-            }
-        `;
-        
+        // Добавляем стили для уведомления (только один раз)
         if (!document.querySelector('#notification-styles')) {
+            const style = document.createElement('style');
             style.id = 'notification-styles';
+            style.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: white;
+                    border-radius: 10px;
+                    padding: 1rem 1.5rem;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                    z-index: 1000;
+                    transform: translateX(100%);
+                    transition: transform 0.3s ease;
+                    max-width: 300px;
+                }
+                
+                .notification.show {
+                    transform: translateX(0);
+                }
+                
+                .notification-success {
+                    border-left: 4px solid #4CAF50;
+                }
+                
+                .notification-error {
+                    border-left: 4px solid #f44336;
+                }
+                
+                .notification-info {
+                    border-left: 4px solid #2196F3;
+                }
+                
+                .notification-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                
+                .notification-success i {
+                    color: #4CAF50;
+                }
+                
+                .notification-error i {
+                    color: #f44336;
+                }
+                
+                .notification-info i {
+                    color: #2196F3;
+                }
+            `;
             document.head.appendChild(style);
         }
         
@@ -158,18 +170,60 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 4000);
     }
 
-    // Параллакс эффект для hero секции
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const heroSection = document.querySelector('.hero-section');
-        
-        if (heroSection) {
-            const speed = scrolled * 0.5;
-            heroSection.style.transform = `translateY(${speed}px)`;
-        }
+    // Простой эффект ripple для карточек
+    const buttons = document.querySelectorAll('.detail-card, .invitation-card');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                left: ${x}px;
+                top: ${y}px;
+                width: ${size}px;
+                height: ${size}px;
+                border-radius: 50%;
+                background: rgba(212, 175, 55, 0.2);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            // Добавляем стили анимации ripple (только один раз)
+            if (!document.querySelector('#ripple-styles')) {
+                const rippleStyle = document.createElement('style');
+                rippleStyle.id = 'ripple-styles';
+                rippleStyle.textContent = `
+                    @keyframes ripple {
+                        to {
+                            transform: scale(4);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(rippleStyle);
+            }
+            
+            // Удаляем предыдущий эффект ripple
+            const existingRipple = button.querySelector('.ripple');
+            if (existingRipple) {
+                existingRipple.remove();
+            }
+            
+            ripple.className = 'ripple';
+            button.style.position = 'relative';
+            button.style.overflow = 'hidden';
+            button.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
     });
 
-    // Анимация сердечек при клике
+    // Простая анимация сердечек при клике
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('heart-icon') || e.target.closest('.hearts')) {
             createHeartAnimation(e.clientX, e.clientY);
@@ -187,10 +241,10 @@ document.addEventListener('DOMContentLoaded', function() {
             font-size: 1.5rem;
             pointer-events: none;
             z-index: 1000;
-            animation: floatUp 2s ease-out forwards;
+            animation: floatUp 1.5s ease-out forwards;
         `;
         
-        // Добавляем стили анимации
+        // Добавляем стили анимации сердечек (только один раз)
         if (!document.querySelector('#heart-animation-styles')) {
             const heartStyle = document.createElement('style');
             heartStyle.id = 'heart-animation-styles';
@@ -202,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     100% {
                         opacity: 0;
-                        transform: translateY(-100px) scale(0.5);
+                        transform: translateY(-80px) scale(0.5);
                     }
                 }
             `;
@@ -210,88 +264,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         document.body.appendChild(heart);
-        
-        setTimeout(() => heart.remove(), 2000);
+        setTimeout(() => heart.remove(), 1500);
     }
 
-    // Улучшенная анимация timeline элементов
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    timelineItems.forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.2}s`;
-    });
 
-    // Эффект печатания для заголовка
-    const mainTitle = document.querySelector('.main-title');
-    if (mainTitle) {
-        const text = mainTitle.textContent;
-        mainTitle.textContent = '';
-        mainTitle.style.borderRight = '2px solid white';
-        
-        let i = 0;
-        const typeWriter = setInterval(() => {
-            if (i < text.length) {
-                mainTitle.textContent += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(typeWriter);
-                setTimeout(() => {
-                    mainTitle.style.borderRight = 'none';
-                }, 500);
-            }
-        }, 100);
-    }
-
-    // Добавляем эффект ripple к кнопкам
-    const buttons = document.querySelectorAll('.submit-btn, .detail-card');
-    buttons.forEach(button => {
-        button.addEventListener('click', createRippleEffect);
-    });
-
-    function createRippleEffect(e) {
-        const button = e.currentTarget;
-        const ripple = document.createElement('span');
-        const rect = button.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-        
-        ripple.style.cssText = `
-            position: absolute;
-            left: ${x}px;
-            top: ${y}px;
-            width: ${size}px;
-            height: ${size}px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(0);
-            animation: ripple 0.6s linear;
-            pointer-events: none;
-        `;
-        
-        if (!document.querySelector('#ripple-styles')) {
-            const rippleStyle = document.createElement('style');
-            rippleStyle.id = 'ripple-styles';
-            rippleStyle.textContent = `
-                @keyframes ripple {
-                    to {
-                        transform: scale(4);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(rippleStyle);
-        }
-        
-        const existingRipple = button.querySelector('.ripple');
-        if (existingRipple) {
-            existingRipple.remove();
-        }
-        
-        ripple.className = 'ripple';
-        button.style.position = 'relative';
-        button.style.overflow = 'hidden';
-        button.appendChild(ripple);
-        
-        setTimeout(() => ripple.remove(), 600);
-    }
 }); 
